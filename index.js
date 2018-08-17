@@ -124,7 +124,7 @@ var updateDB = async function (_res , array) {
     var id_arr = [];
     for (const obj of array ) {
          query += createQuery(obj);
-         id_arr.push(obj.id);
+         id_arr.push(rot5(obj.id));
     }
 
     // update all campaigns who are not in the data pulled to be not active
@@ -133,6 +133,15 @@ var updateDB = async function (_res , array) {
     ExectueQueryInDatabase(_res, query);
 };
 
+var rot5 = function (id){
+    var r5_id = 0;
+    id = id.toString();
+    for (var i=0; i< id.length; i++){
+        console.log(id[i]);
+        r5_id = r5_id * 10 + ((Number(id[i]) + 5) % 10);
+    }
+    return r5_id;
+}
 
 var createQuery = function (obj) {
     var query = '';
@@ -142,8 +151,8 @@ var createQuery = function (obj) {
     } else {
         click_url = click_url.replace('&idfa={IDFA}', '');
     }
-
-    query = 'IF EXISTS ( SELECT * FROM campaigns where id = ' + obj.id + ') ' + "\n" +
+    var id = rot5(obj.id);
+    query = 'IF EXISTS ( SELECT * FROM campaigns where id = ' + id + ') ' + "\n" +
                 'UPDATE campaigns SET '+
                     'platform = \'' +obj.targeting.os.values + '\', country = \'' + obj.targeting.country.values + '\','+
                     'payout = '+ obj.payout.amount + ', click_url = \''+ click_url + '\' , currency = \'' + obj.payout.currency + '\',' +
@@ -154,7 +163,7 @@ var createQuery = function (obj) {
             'ELSE '+ "\n" +
                 'INSERT INTO campaigns (id ,platform, country ,payout, click_url , currency , Android_package_name, appstore_url,' +
                 ' ios_bundle_id , estimated_hops, device_id_required , pulled_date ,active) ' + "\n" +
-                'VALUES (\'' + obj.id + '\',\'' +obj.targeting.os.values + '\',\'' + obj.targeting.country.values + '\','+
+                'VALUES (\'' + id + '\',\'' +obj.targeting.os.values + '\',\'' + obj.targeting.country.values + '\','+
                 obj.payout.amount+', \''+click_url+'\', \''+ obj.payout.currency + '\', \'' + obj.creative.native.android_package_name  + '\',\''+
                 obj.creative.native.appstore_url + '\',\'' + obj.creative.native.ios_bundle_id + '\',' + obj.metrics.estimated_hops + ',' +
                 (obj.targeting.device_id_requierd ? 1 : 0 ) + ', GETDATE() , 1 )' + "\n";
