@@ -19,13 +19,24 @@ var server = app.listen(process.env.PORT || 4000, function(){
    console.log("App now runing on port", port);
 });
 
-var dbConfig = {
-    user: "Admin",
-    password: "Admin123",
-    server: "DESKTOP-L115F7C",
-    port: 49175,
-    database: "testsql2"
+// var dbConfig = {
+//     user: "Admin",
+//     password: "Admin123",
+//     server: "DESKTOP-L115F7C",
+//     port: 49175,
+//     database: "testsql2"
+//
+// };
 
+var dbConfig = {
+    user: "AvihuPinko",
+    password: "@avi1990pin",
+    server: "avihupinko.database.windows.net",
+    port: 1433,
+    database: "avihupinko",
+    options: {
+        encrypt: true
+    }
 };
 
 var QueryToExectueInDatabase = function (response , strQuery) {
@@ -72,6 +83,25 @@ var ExectueQueryInDatabase = function (response , strQuery) {
 
 app.get("/test", function(_req, _res) {
     _res.send("TEST_OK");
+});
+
+
+app.get("/createDB", function(_req, _res){
+    var sqlQuery = "CREATE TABLE campaigns" +
+        "id [varchar](50) NOT NULL," +
+        "platform [varchar](50) NULL,\n" +
+        "country [varchar](50) NULL,\n" +
+        "payout [float] NULL,\n" +
+        "click_url [varchar](max) NULL,\n" +
+        "currency [varchar](50) NULL,\n" +
+        "Android_package_name [varchar](50) NULL,\n" +
+        "appstore_url [varchar](max) NULL,\n" +
+        "ios_bundle_id [varchar](50) NULL,\n" +
+        "estimated_hops [float] NULL,\n" +
+        "device_id_required [int] NULL,\n" +
+        "pulled_date [datetime] NULL,\n" +
+        "active [int] NULL)";
+    QueryToExectueInDatabase(_res, sqlQuery);
 });
 
 
