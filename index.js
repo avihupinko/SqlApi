@@ -60,9 +60,10 @@ var ExectueQueryInDatabase = function (response , strQuery) {
 
             request.query( strQuery , function (error, responseResult) {
                 if (error){
-                    console.log(strQuery);
                     console.log("Error While connecting to database :- " + error);
                     response.send(error);
+                } else {
+                    response.send("OK");
                 }
             });
         }
@@ -72,18 +73,17 @@ var ExectueQueryInDatabase = function (response , strQuery) {
 app.get("/platform", function(_req, _res){
     var where = '';
     if (_req.query.os){
-        where = 'where platform = \'' + _req.query.os + '\'';
+        where = ' AND platform = \'' + _req.query.os + '\'';
     }
-   var sqlQuery = "select * from campaigns " + where;
-    console.log(sqlQuery);
+   var sqlQuery = "select * from campaigns where active = 1 " + where;
    QueryToExectueInDatabase(_res, sqlQuery);
 });
 
 /* get all payout unless lt or gt are given */
 app.get("/payout", function(_req, _res){
-    var sqlQuery = "select * from campaigns ";
+    var sqlQuery = "select * from campaigns where active = 1 ";
     var where = '';
-    console.log(_req);
+
     if (_req.query.lt){
         where += ' payout <= ' + _req.query.lt;
         if (_req.query.gt){
@@ -94,9 +94,31 @@ app.get("/payout", function(_req, _res){
         where += ' payout >= ' + _req.query.gt;
     }
     if (where !== ''){
-        sqlQuery += ' where ' + where;
+        sqlQuery += ' AND ' + where;
+    } else {
+        sqlQuery += ' order by payout'
     }
-    console.log(sqlQuery);
+    QueryToExectueInDatabase(_res, sqlQuery);
+});
+
+app.get("/offers", function(_req, _res){
+    var sqlQuery = "select * from campaigns where active = 1 ";
+    var where = '';
+
+    if (_req.query.lt){
+        where += ' AND payout <= ' + _req.query.lt;
+    }
+    if (_req.query.gt){
+        where += ' AND payout >= ' + _req.query.gt;
+    }
+    if (_req.query.os){
+        where = ' AND platform = \'' + _req.query.os + '\'';
+    }
+    if (where !== ''){
+        sqlQuery += where;
+    } else {
+        sqlQuery += ' order by payout'
+    }
     QueryToExectueInDatabase(_res, sqlQuery);
 });
 
@@ -137,7 +159,6 @@ var rot5 = function (id){
     var r5_id = 0;
     id = id.toString();
     for (var i=0; i< id.length; i++){
-        console.log(id[i]);
         r5_id = r5_id * 10 + ((Number(id[i]) + 5) % 10);
     }
     return r5_id;
