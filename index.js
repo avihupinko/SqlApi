@@ -70,6 +70,11 @@ var ExectueQueryInDatabase = function (response , strQuery) {
     });
 };
 
+app.get("/test", function(_req, _res) {
+    _res.send("TEST_OK");
+});
+
+
 app.get("/platform", function(_req, _res){
     var where = '';
     if (_req.query.os){
