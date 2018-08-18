@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e66ad37f-4496-4d5f-970c-424186d713f9" name="Default Changelist" comment="" />
+    <list default="true" id="e66ad37f-4496-4d5f-970c-424186d713f9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -26,12 +28,12 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="js" value="2" />
-          <entry key="json" value="1" />
+          <entry key="json" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JSON" value="1" />
+          <entry key="JSON" value="2" />
           <entry key="JavaScript" value="2" />
         </counts>
       </usages-collector>
@@ -117,8 +119,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="659" />
-    <option name="width" value="714" />
+    <option name="x" value="694" />
+    <option name="width" value="679" />
     <option name="height" value="735" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -173,7 +175,7 @@
       <workItem from="1534403378772" duration="8494000" />
       <workItem from="1534413975253" duration="18298000" />
       <workItem from="1534495627381" duration="10857000" />
-      <workItem from="1534569040450" duration="1900000" />
+      <workItem from="1534569040450" duration="3302000" />
     </task>
     <task id="LOCAL-00001" summary="api commit">
       <created>1534499748680</created>
@@ -200,7 +202,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39549000" />
+    <option name="totallyTimeSpent" value="40951000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -212,9 +214,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="676" y="0" width="697" height="735" extended-state="0" />
+    <frame x="694" y="0" width="679" height="735" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20485584" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21060842" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -284,6 +286,11 @@
         <state relative-caret-position="126">
           <caret line="139" column="12" selection-start-line="139" selection-start-column="8" selection-end-line="139" selection-end-column="12" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4131" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
