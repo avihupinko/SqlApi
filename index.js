@@ -201,11 +201,19 @@ var rot5 = function (id){
 
 var createQuery = function (obj) {
     var query = '';
-    var click_url = obj.click_url;
-    if (obj.targeting.os.values === 'iOS'){
-        click_url = click_url.replace('&androidid={ANDROID_ID}', '');
+    var click_url = "";
+    var regex ;
+
+    if ((obj.targeting.os.values[0]).toLowerCase() == 'ios'){
+        console.log('ios');
+        regex = /\&androidid={ANDROID_ID}/i;
+        click_url = obj.click_url.toString().replace(regex, '');
+        console.log(click_url);
     } else {
-        click_url = click_url.replace('&idfa={IDFA}', '');
+        console.log('andoroid');
+        regex = /\&idfa={IDFA}/i;
+        click_url = obj.click_url.toString().replace(regex, '');
+        console.log(click_url);
     }
     var id = rot5(obj.id);
     query = 'IF EXISTS ( SELECT * FROM campaigns where id = ' + id + ') ' + "\n" +
@@ -215,7 +223,7 @@ var createQuery = function (obj) {
                     ' Android_package_name = \'' + obj.creative.native.android_package_name + '\', appstore_url = \'' + obj.creative.native.appstore_url + '\','+
                     ' ios_bundle_id = ' + obj.creative.native.ios_bundle_id + ', estimated_hops = ' + obj.metrics.estimated_hops +
                     ', device_id_required = '+(obj.targeting.device_id_requierd ? 1 : 0 ) + ', pulled_date = GETDATE() ,active = 1 '+ "\n" +
-                'WHERE id = \''+ obj.id + "'\n" +
+                'WHERE id = \''+ id + "'\n" +
             'ELSE '+ "\n" +
                 'INSERT INTO campaigns (id ,platform, country ,payout, click_url , currency , Android_package_name, appstore_url,' +
                 ' ios_bundle_id , estimated_hops, device_id_required , pulled_date ,active) ' + "\n" +
